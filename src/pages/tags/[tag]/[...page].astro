@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { localizePost } from "@/utils/localizePost";
 import type { GetStaticPathsOptions } from "astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
@@ -35,6 +36,9 @@ const { page, tagName } = Astro.props;
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
+const localizedPosts = await Promise.all(
+  page.data.map(post => localizePost(post, locale))
+);
 ---
 
 <Layout title={`${t.pages.tagTitle}: ${tagName} | ${config.site.title}`}>
@@ -47,7 +51,7 @@ const t = useTranslations(locale);
     pageDesc={`${t.pages.tagDesc} "${tagName}".`}
   >
     <ul>
-      {page.data.map(data => <Card {...data} />)}
+      {localizedPosts.map(data => <Card {...data} />)}
     </ul>
   </Main>
 

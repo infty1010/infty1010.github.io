@@ -28,6 +28,12 @@ export default {
     page: "Page",
   },
   home: {
+    welcome: "Welcome",
+    introduction: "A place for my notes, ideas, and writing.",
+    empty: "No posts yet. Check back soon.",
+    emptySearch: "No posts to search yet. Check back soon.",
+    translationMissing:
+      "This article is not available in English yet. The original text is shown below.",
     socialLinks: "Social Links",
     featured: "Featured",
     recentPosts: "Recent Posts",

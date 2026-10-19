@@ -27,6 +27,17 @@ const pathWithoutTrailingSlash =
 
 const currentPath = stripLocale(pathWithoutTrailingSlash, locale);
 
+const targetLocale = locale === "zh" ? "en" : "zh";
+const languagePath = currentPath.startsWith("/404")
+  ? targetLocale === "zh"
+    ? "404"
+    : "404.html"
+  : currentPath.replace(/^\//, "");
+const languageHref = getRelativeLocaleUrl(targetLocale, languagePath).replace(
+  /\.html\/$/,
+  ".html"
+);
+
 const isActive = (path: string) => {
   const currentPathArray = currentPath.split("/").filter(p => p.trim());
   const pathArray = path.split("/").filter(p => p.trim());
@@ -53,6 +64,16 @@ const isActive = (path: string) => {
       class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
     >
       {site.title}
+    </a>
+    <a
+      href={languageHref}
+      hreflang={targetLocale}
+      lang={targetLocale}
+      data-astro-reload
+      aria-label={locale === "zh" ? "Switch to English" : "切换到中文"}
+      class="focus-outline border-border hover:text-accent absolute end-12 top-5 rounded-full border px-3 py-1 text-sm font-medium sm:static sm:order-last sm:ms-3 sm:shrink-0"
+    >
+      {locale === "zh" ? "English" : "中文"}
     </a>
     <nav
       id="nav-menu"

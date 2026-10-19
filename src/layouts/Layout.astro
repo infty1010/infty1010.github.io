@@ -2,6 +2,7 @@
 import { ClientRouter } from "astro:transitions";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
+import { stripBase, stripLocale } from "@/utils/withBase";
 import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 import "@fontsource-variable/inter";
@@ -20,16 +21,23 @@ const { site } = config;
 
 const {
   title = site.title,
-  description = site.description,
+  description = Astro.currentLocale === "zh"
+    ? "Zixin Yu 的笔记、想法与文字。"
+    : site.description,
   ogImage = resolveDefaultOgImagePath(config),
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
 } = Astro.props;
 
+const locale = Astro.currentLocale ?? site.lang;
+const pagePath = stripLocale(stripBase(Astro.url.pathname), locale).replace(
+  /^\//,
+  ""
+);
 const socialImageURL = new URL(ogImage, Astro.site ?? Astro.url);
 const rssHref = getRelativeLocaleUrl(
   Astro.currentLocale ?? config.site.lang,
   "rss.xml"
-);
+).replace(/\/$/, "");
 ---
 
 <!doctype html>
@@ -43,6 +51,27 @@ const rssHref = getRelativeLocaleUrl(
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href={getAssetPath("favicon.svg")} />
     <link rel="canonical" href={canonicalURL} />
+    {
+      ["en", "zh"].map(language => (
+        <link
+          rel="alternate"
+          hreflang={language === "zh" ? "zh-CN" : "en"}
+          href={
+            new URL(
+              getRelativeLocaleUrl(
+                language,
+                pagePath.startsWith("404")
+                  ? language === "zh"
+                    ? "404"
+                    : "404.html"
+                  : pagePath
+              ).replace(/\.html\/$/, ".html"),
+              Astro.site
+            ).href
+          }
+        />
+      ))
+    }
     <meta name="generator" content={Astro.generator} />
 
     <!-- Primary meta -->

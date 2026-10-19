@@ -36,13 +36,18 @@ const hasPosts = getSortedPosts(await getCollection("posts")).length > 0;
   <Breadcrumb />
 
   <Main pageTitle={t.pages.searchTitle} pageDesc={t.pages.searchDesc}>
-    {hasPosts ? (<div
-      id="pagefind-search"
-      transition:persist
-      data-backurl={backUrl}
-      data-bundle-path={pagefindBundlePath}
-    >
-    </div>) : (<p>No posts to search yet. Check back soon.</p>)}
+    {
+      hasPosts ? (
+        <div
+          id="pagefind-search"
+          data-backurl={backUrl}
+          data-locale={locale}
+          data-bundle-path={pagefindBundlePath}
+        ></div>
+      ) : (
+        <p>{t.home.emptySearch}</p>
+      )
+    }
   </Main>
 
   <Footer />
@@ -81,6 +86,23 @@ const hasPosts = getSortedPosts(await getCollection("posts")).length > 0;
         element: "#pagefind-search",
         bundlePath,
         showImages: false,
+        translations:
+          pageFindSearch.dataset.locale === "zh"
+            ? {
+                placeholder: "搜索文章……",
+                clear_search: "清除",
+                load_more: "加载更多",
+                search_label: "站内搜索",
+                searching: "正在搜索 [SEARCH_TERM]……",
+                zero_results: "没有找到“[SEARCH_TERM]”的相关结果",
+                one_result: "找到 [COUNT] 条“[SEARCH_TERM]”的结果",
+                many_results: "找到 [COUNT] 条“[SEARCH_TERM]”的结果",
+                alt_search:
+                  "没有找到“[SEARCH_TERM]”的结果，改为显示“[DIFFERENT_TERM]”的结果",
+                search_suggestion:
+                  "没有找到“[SEARCH_TERM]”的结果。试试其他关键词。",
+              }
+            : undefined,
         showSubResults: true,
         processTerm: function (term: string) {
           params.set("q", term); // Update the `q` parameter in the URL

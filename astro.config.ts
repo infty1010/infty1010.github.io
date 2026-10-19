@@ -22,6 +22,29 @@ import config from "./astro-paper.config";
 export default defineConfig({
   site: config.site.url,
   integrations: [
+    {
+      name: "infty-chinese-routes",
+      hooks: {
+        "astro:config:setup": ({ injectRoute }) => {
+          const routes = {
+            "/zh": "index.astro",
+            "/zh/about": "about.astro",
+            "/zh/search": "search.astro",
+            "/zh/archives": "archives/index.astro",
+            "/zh/tags": "tags/index.astro",
+            "/zh/posts/[...page]": "posts/[...page].astro",
+            "/zh/tags/[tag]/[...page]": "tags/[tag]/[...page].astro",
+            "/zh/posts/[...slug]": "posts/[...slug]/index.astro",
+            "/zh/posts/[...slug]/index.png": "posts/[...slug]/index.png.ts",
+            "/zh/rss.xml": "rss.xml.ts",
+            "/zh/404": "404.astro",
+          };
+          for (const [pattern, file] of Object.entries(routes)) {
+            injectRoute({ pattern, entrypoint: `./src/pages/${file}` });
+          }
+        },
+      },
+    },
     mdx(),
     sitemap({
       filter: page =>
@@ -29,7 +52,7 @@ export default defineConfig({
     }),
   ],
   i18n: {
-    locales: ["en"],
+    locales: ["en", "zh"],
     defaultLocale: "en",
     routing: {
       prefixDefaultLocale: false,

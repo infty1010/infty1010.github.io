@@ -122,5 +122,37 @@ Use the actual filename if you renamed it. If Git asks for authentication, use G
 - AstroPaper layout, Inter + Georgia, and Chinese font fallbacks.
 - GitHub Pages hosting and automatic deployment on pushes to `main`.
 - No published demo articles. The starter post is marked as a draft.
-- The default AstroPaper site title is retained; change `site.title` in `astro-paper.config.ts` when ready.
+- The site title is Infty; change `site.title` in `astro-paper.config.ts` to rename it.
 - Old demo articles remain recoverable in Git history.
+
+## English / 中文 versions
+
+Use the **中文 / English** button beside the site name to switch languages. It keeps the current page, article, tag or archive section. English URLs remain unchanged; Chinese pages use `/zh/`.
+
+For your first post:
+
+- English: `src/content/posts/my-first-post.md`
+- Chinese: `src/content/translations/zh/my-first-post.md`
+
+For each new English article:
+
+1. Create `src/content/posts/my-notes.md` as usual, with `lang: en`. This original file owns the publication date, tags, draft status and featured setting for BOTH versions.
+2. Create `src/content/translations/zh/my-notes.md` with the same filename and any matching subfolders.
+3. The translation file only needs a translated title, description and Markdown body:
+
+```markdown
+---
+title: "我的笔记"
+description: "这篇文章的中文简介。"
+---
+
+在这里写中文正文。
+```
+
+The original article must have `draft: false` before either version can appear. Translation files never create separate articles in the list. Translations are written by you; future posts are not automatically translated. If a translation is missing, that language's page shows the original article with a notice.
+
+You can also write the original in Chinese (`lang: zh-CN`) and put its English translation at `src/content/translations/en/my-notes.md`. A translation file overrides the title, summary and body in that language, so edit that file when updating the translation.
+
+Edit the English About page at `src/content/pages/about.md` and the Chinese one at `src/content/pages/about-zh.md`. Menu labels and homepage text live in `src/i18n/lang/en.ts` and `src/i18n/lang/zh.ts`.
+
+After editing, commit and push normally. One deployment publishes both languages.

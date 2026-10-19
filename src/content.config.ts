@@ -35,4 +35,12 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { posts, pages };
+const translations = defineCollection({
+  loader: glob({
+    pattern: "**/[^_]*.{md,mdx}",
+    base: "./src/content/translations",
+  }),
+  schema: z.object({ title: z.string(), description: z.string() }),
+});
+
+export const collections = { posts, pages, translations };

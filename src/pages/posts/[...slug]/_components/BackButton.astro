@@ -32,7 +32,13 @@ const t = useTranslations(locale);
     const backUrl = sessionStorage.getItem("backUrl");
 
     if (backUrl && backButton) {
-      backButton.href = backUrl;
+      const url = new URL(backUrl, location.origin);
+      const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+      if (url.origin !== location.origin || !url.pathname.startsWith(base))
+        return;
+      const path = url.pathname.slice(base.length).replace(/^zh(?:\/|$)/, "");
+      const prefix = document.documentElement.lang === "zh" ? "zh/" : "";
+      backButton.href = `${base}${prefix}${path}${url.search}`;
     }
   }
 
