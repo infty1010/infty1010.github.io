@@ -3,7 +3,7 @@ import { defineAstroPaperConfig } from "./src/types/config";
 export default defineAstroPaperConfig({
   site: {
     url: "https://infty1010.github.io/",
-    title: "AstroPaper",
+    title: "Infty",
     description: "Notes, ideas, and writing by Zixin Yu.",
     author: "Zixin Yu",
     profile: "https://github.com/zixin2006",
