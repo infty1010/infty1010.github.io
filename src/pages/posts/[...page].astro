@@ -29,6 +29,7 @@ const t = useTranslations(locale);
   <Breadcrumb />
 
   <Main pageTitle={t.pages.postsTitle} pageDesc={t.pages.postsDesc}>
+    {page.data.length === 0 && <p>No posts yet. Check back soon.</p>}
     <ul>
       {page.data.map(data => <Card {...data} />)}
     </ul>

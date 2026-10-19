@@ -4,7 +4,7 @@ export default defineAstroPaperConfig({
   site: {
     url: "https://infty1010.github.io/",
     title: "AstroPaper",
-    description: "A minimal, responsive and SEO-friendly Astro blog theme.",
+    description: "Notes, ideas, and writing by Zixin Yu.",
     author: "Zixin Yu",
     profile: "https://github.com/zixin2006",
     ogImage: "default-og.jpg",
