@@ -1,14 +1,14 @@
 ---
-title: "My first post / 我的第一篇文章"
+title: "Hello World / 我的第一篇文章"
 pubDatetime: 2026-10-18T12:00:00-07:00
-description: "Replace this with a one-sentence summary."
+description: "Test website."
 tags: [notes]
 lang: zh-CN
 featured: false
-draft: true
+draft: false
 ---
 
-Write your own post here. 在这里写下你的文章。
+Hello world.
 
 ## A section / 小标题
 
