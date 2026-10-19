@@ -1,3 +1,45 @@
+# AstroPaper personal blog
+
+Website: https://infty1010.github.io/
+
+This is AstroPaper with its original starter wording and posts, Inter navigation,
+Georgia reading text, and self-hosted Noto Sans SC / Noto Serif SC Chinese fallbacks.
+
+## Write a post
+
+Add a `.md` or `.mdx` file in `src/content/posts/`:
+
+```yaml
+---
+title: My first post
+pubDatetime: 2026-10-19T12:00:00Z
+description: A short summary of the post.
+tags: [notes]
+draft: false
+---
+```
+
+Write your article below the frontmatter. For Chinese articles add `lang: zh-CN`
+to enable Chinese language semantics and more generous line spacing.
+Set `draft: true` to keep a work in progress off the published site.
+
+## Preview and publish
+
+Use Node.js 24 and pnpm 11.19.0. Run `pnpm install`, then `pnpm dev`.
+`pnpm build` checks the project, builds static pages, and indexes search.
+Changes pushed to `main` publish automatically through GitHub Actions once
+repository Settings → Pages → Source is set to **GitHub Actions**.
+
+Customize the site title, description, links and author in `astro-paper.config.ts`.
+The welcome text is in `src/pages/index.astro`; About content is in
+`src/content/pages/about.md`. Typography is in `src/styles/global.css` and
+`src/styles/theme.css`. Georgia uses the reader's system font; devices without
+Georgia use the supplied serif fallback. Chinese fonts are hosted with the site.
+
+The original AstroPaper starter articles and attribution are retained below.
+
+---
+
 # AstroPaper 📄
 
 ![AstroPaper](public/default-og.jpg)

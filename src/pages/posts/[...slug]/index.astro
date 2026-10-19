@@ -97,6 +97,7 @@ const ogImage = ogImageUrl
 ---
 
 <PostLayout
+  author={post.data.author}
   title={`${title} | ${config.site.title}`}
   description={description}
   ogImage={ogImage}
@@ -110,6 +111,7 @@ const ogImage = ogImageUrl
 
   <main
     id="main-content"
+    lang={post.data.lang ?? config.site.lang}
     class:list={["app-layout", { "mt-8": !config.features.showBackButton }]}
     data-pagefind-body
   >
